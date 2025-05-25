@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import './app.css';
 import './telegram-webapp.d.ts';
-import Button from './components/button/button.tsx';
+import Header from './components/header/header.tsx';
 
 const tg = window.Telegram.WebApp;
 
@@ -11,13 +11,9 @@ function App() {
     tg.ready();
   }, []);
 
-  const onClose = () => {
-    tg.close()
-  }
   return (
     <>
-      <button onClick={onClose}>Close</button>
-      <Button />
+      <Header />
     </>
   )
 }
