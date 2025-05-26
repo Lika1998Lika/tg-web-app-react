@@ -8,7 +8,7 @@ type Props = {
 function Button(props: Props) {
   const { onClose, children } = props
   return (
-    <button onClick={onClose}>
+    <button onClick={onClose} className='button'>
       {children}
     </button>
   )
