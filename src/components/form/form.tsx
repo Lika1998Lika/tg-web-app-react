@@ -20,7 +20,7 @@ function Form() {
     return () => {
       tg.offEvent('mainButtonClicked', onSendData); // отписались
     }
-  }, []);
+  }, [onSendData]);
 
   useEffect(() => {
     tg.MainButton.setParams({ text: 'Отправить данные' })
