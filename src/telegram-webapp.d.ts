@@ -1,4 +1,3 @@
-// telegram-webapp.d.ts
 declare global {
   interface Window {
     Telegram: TelegramNamespace;

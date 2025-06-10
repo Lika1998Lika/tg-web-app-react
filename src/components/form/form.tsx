@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './form.css';
 import useTelegram from '../hooks/useTelegram';
 
@@ -8,6 +8,19 @@ function Form() {
   const [subject, setSubject] = useState('physical');
 
   const { tg } = useTelegram();
+
+  const onSendData = useCallback(() => {
+    const data = { country, street, subject };
+    tg.sendData(JSON.stringify(data))
+  }, [country, street, subject]); // useCallback используем, чтобы сохранить ссылку на функцию 
+
+  useEffect(() => {
+    tg.onEvent('mainButtonClicked', onSendData); // подписались
+
+    return () => {
+      tg.offEvent('mainButtonClicked', onSendData); // отписались
+    }
+  }, []);
 
   useEffect(() => {
     tg.MainButton.setParams({ text: 'Отправить данные' })
