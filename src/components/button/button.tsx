@@ -3,7 +3,7 @@ import './button.css';
 
 type Props = {
   onClose: () => void;
-  children: React.ReactNode
+  children: React.ReactNode,
 }
 function Button(props: Props) {
   const { onClose, children } = props
