@@ -36,7 +36,7 @@ function ProductList() {
       products: addedItem,
       totalPrice: getTotalPrice(addedItem)
     };
-    fetch('http://localhost:5173/', {
+    fetch('http://localhost:5173', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
