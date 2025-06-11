@@ -28,7 +28,7 @@ const getTotalPrice = (items: ProductType[]) => {
 function ProductList() {
   const [addedItem, setAddedItem] = useState<ProductType[]>([]);
 
-  const { tg, query_id } = useTelegram();
+  const { tg, query_id, onClose } = useTelegram();
 
   const onSendData = useCallback(() => {
     const data = {
@@ -72,7 +72,7 @@ function ProductList() {
       tg.MainButton.setParams({
         text: `Купить ${getTotalPrice(newItem)}`,
       })
-      tg.MainButton.onClick(() => console.log('hhh'))
+      tg.MainButton.onClick(() => onClose())
     }
   };
 
