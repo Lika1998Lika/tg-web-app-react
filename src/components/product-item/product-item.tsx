@@ -1,4 +1,3 @@
-import Button from '../button/button';
 import './product-item.css';
 
 type ProductType = {
@@ -11,15 +10,10 @@ type ProductType = {
 type ProductItemType = {
   product: ProductType,
   className: string,
-  onAdd: (product: ProductType) => void;
+  onAdd: () => void;
 }
 
 function ProductItem({ product, className, onAdd }: ProductItemType) {
-
-  const onAddHandler = () => {
-    onAdd(product)
-  }
-
   return (
     <div className={'product ' + className}>
       <div className="img" />
@@ -28,7 +22,7 @@ function ProductItem({ product, className, onAdd }: ProductItemType) {
       <div className="price">
         <span>Стоимость: <b>{product.price}</b></span>
       </div>
-      <Button onClose={onAddHandler}>Добавить в корзину</Button>
+      <button onClick={onAdd}>Добавить в корзину</button>
     </div>
   )
 };

@@ -54,40 +54,36 @@ function ProductList() {
   }, []);
 
   const onAdd = (product: ProductType) => {
-    const alreadyAdded = addedItem.find((item: ProductType) => item.id === product.id);
-    let newItem = [];
+    setAddedItem([...products, product]);
 
-    if (alreadyAdded) {
-      newItem = addedItem.filter((item: ProductType) => item.id !== product.id)
-    } else {
-      newItem = [...addedItem, product]
-    }
-
-    setAddedItem(newItem);
-
-    if (newItem.length === 0) {
-      tg.MainButton.hide();
-    } else {
-      tg.MainButton.show();
-      tg.MainButton.setParams({
-        text: `Купить ${getTotalPrice(newItem)}`,
-      })
-      tg.MainButton.onClick(() => {
-        onSendData().catch((e) => {
-          tg.MainButton.setParams({
-            text: `Упс ${e.message}`,
-          })
-        })
-      })
-    }
+    // if (newItem.length === 0) {
+    //   tg.MainButton.hide();
+    // } else {
+    //   tg.MainButton.show();
+    //   tg.MainButton.setParams({
+    //     text: `Купить ${getTotalPrice(newItem)}`,
+    //   })
+    //   tg.MainButton.onClick(() => {
+    //     onSendData().catch((e) => {
+    //       tg.MainButton.setParams({
+    //         text: `Упс ${e.message}`,
+    //       })
+    //     })
+    //   })
+    // }
   };
 
+  if (products.length === 0) {
+    tg.MainButton.hide()
+  } else {
+    tg.MainButton.show()
+  }
 
   return (
     <div className='list'>
       {
         products.map((item: ProductType) => (
-          <ProductItem key={item.id} product={item} className={'item'} onAdd={onAdd} />
+          <ProductItem key={item.id} product={item} className={'item'} onAdd={() => onAdd(item)} />
         ))
       }
     </div>
