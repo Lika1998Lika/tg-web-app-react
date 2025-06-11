@@ -59,7 +59,7 @@ function ProductList() {
   };
 
   useEffect(() => {
-    if (products.length === 0) {
+    if (cart.length === 0) {
       tg.MainButton.hide()
     } else {
       tg.MainButton.show()
@@ -87,7 +87,7 @@ function ProductList() {
         }
       })
     }
-  }, [products])
+  }, [cart])
 
   return (
     <div className='list'>
