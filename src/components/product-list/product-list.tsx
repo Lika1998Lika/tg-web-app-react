@@ -64,23 +64,26 @@ function ProductList() {
     } else {
       tg.MainButton.show()
       tg.MainButton.setParams({
-        text: `Купить ${getTotalPrice(products)}`,
+        text: `Купить ${getTotalPrice(cart)}`,
       })
       tg.MainButton.onClick(async () => {
         try {
           const result = await onSendData()
           if (result.status === 200) {
             tg.MainButton.setParams({
-              text: `Success ${getTotalPrice(products)}`,
+              text: `Success ${getTotalPrice(cart)}`,
             })
-            // onClose();
+          } else {
+            tg.MainButton.setParams({
+              text: `Status: ${result.status}`,
+            })
           }
         } catch (e) {
-          if (e instanceof Error) {
-            tg.MainButton.setParams({
-              text: `Oops!! ${e.message}`,
-            })
-          }
+          // if (e instanceof Error) {
+          //   tg.MainButton.setParams({
+          //     text: `Oops!! ${e.message}`,
+          //   })
+          // }
         }
       })
     }
