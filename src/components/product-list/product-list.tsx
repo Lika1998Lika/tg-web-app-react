@@ -78,6 +78,9 @@ function ProductList() {
       tg.MainButton.hide()
     } else {
       tg.MainButton.show()
+      tg.MainButton.setParams({
+        text: `Купить ${getTotalPrice(products)}`,
+      })
     }
   }, [products])
 
