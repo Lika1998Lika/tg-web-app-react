@@ -43,7 +43,7 @@ function ProductList() {
       },
       body: JSON.stringify(data)
     })
-  }, []); // useCallback используем, чтобы сохранить ссылку на функцию 
+  }, [addedItem]); // useCallback используем, чтобы сохранить ссылку на функцию 
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData); // подписались
