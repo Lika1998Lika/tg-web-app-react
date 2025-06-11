@@ -72,7 +72,10 @@ function ProductList() {
       tg.MainButton.setParams({
         text: `Купить ${getTotalPrice(newItem)}`,
       })
-      tg.MainButton.onClick(() => onClose())
+      tg.MainButton.onClick(() => {
+        onSendData()
+        onClose()
+      })
     }
   };
 
