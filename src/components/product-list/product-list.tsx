@@ -51,7 +51,7 @@ function ProductList() {
     return () => {
       tg.offEvent('mainButtonClicked', onSendData); // отписались
     }
-  }, [onSendData]);
+  }, []);
 
   const onAdd = (product: ProductType) => {
     const alreadyAdded = addedItem.find((item: ProductType) => item.id === product.id);
@@ -65,22 +65,23 @@ function ProductList() {
 
     setAddedItem(newItem);
 
-    if (newItem.length === 0) {
-      tg.MainButton.hide();
-    } else {
-      tg.MainButton.show();
-      tg.MainButton.setParams({
-        text: `Купить ${getTotalPrice(newItem)}`,
-      })
-      tg.MainButton.onClick(() => {
-        onSendData().then(onClose).catch((e) => {
-          tg.MainButton.setParams({
-            text: `Упс ${e.message}`,
-          })
-        })
-      })
-    }
+    // if (newItem.length === 0) {
+    //   tg.MainButton.hide();
+    // } else {
+    //   tg.MainButton.show();
+    //   tg.MainButton.setParams({
+    //     text: `Купить ${getTotalPrice(newItem)}`,
+    //   })
+    //   tg.MainButton.onClick(() => {
+    //     onSendData().then(onClose).catch((e) => {
+    //       tg.MainButton.setParams({
+    //         text: `Упс ${e.message}`,
+    //       })
+    //     })
+    //   })
+    // }
   };
+
 
   return (
     <div className='list'>
