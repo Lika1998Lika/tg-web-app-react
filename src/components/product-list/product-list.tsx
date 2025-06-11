@@ -28,7 +28,7 @@ const getTotalPrice = (items: ProductType[]) => {
 function ProductList() {
   const [addedItem, setAddedItem] = useState<ProductType[]>([]);
 
-  const { tg, query_id } = useTelegram();
+  const { tg, query_id, onClose } = useTelegram();
 
   const onSendData = useCallback(async () => {
     const data = {
@@ -45,13 +45,13 @@ function ProductList() {
     })
   }, [addedItem]); // useCallback используем, чтобы сохранить ссылку на функцию 
 
-  useEffect(() => {
-    tg.onEvent('mainButtonClicked', onSendData); // подписались
+  // useEffect(() => {
+  //   tg.onEvent('mainButtonClicked', onSendData); // подписались
 
-    return () => {
-      tg.offEvent('mainButtonClicked', onSendData); // отписались
-    }
-  }, []);
+  //   return () => {
+  //     tg.offEvent('mainButtonClicked', onSendData); // отписались
+  //   }
+  // }, []);
 
   const onAdd = (product: ProductType) => {
     setAddedItem([...products, product]);
@@ -80,6 +80,13 @@ function ProductList() {
       tg.MainButton.show()
       tg.MainButton.setParams({
         text: `Купить ${getTotalPrice(products)}`,
+      })
+      tg.MainButton.onClick(() => {
+        onSendData().then(onClose).catch((e) => {
+          tg.MainButton.setParams({
+            text: `oops!! ${e.message}`,
+          })
+        })
       })
     }
   }, [products])
