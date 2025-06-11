@@ -65,21 +65,21 @@ function ProductList() {
 
     setAddedItem(newItem);
 
-    // if (newItem.length === 0) {
-    //   tg.MainButton.hide();
-    // } else {
-    //   tg.MainButton.show();
-    //   tg.MainButton.setParams({
-    //     text: `Купить ${getTotalPrice(newItem)}`,
-    //   })
-    //   tg.MainButton.onClick(() => {
-    //     onSendData().then(onClose).catch((e) => {
-    //       tg.MainButton.setParams({
-    //         text: `Упс ${e.message}`,
-    //       })
-    //     })
-    //   })
-    // }
+    if (newItem.length === 0) {
+      tg.MainButton.hide();
+    } else {
+      tg.MainButton.show();
+      tg.MainButton.setParams({
+        text: `Купить ${getTotalPrice(newItem)}`,
+      })
+      tg.MainButton.onClick(() => {
+        onSendData().catch((e) => {
+          tg.MainButton.setParams({
+            text: `Упс ${e.message}`,
+          })
+        })
+      })
+    }
   };
 
 
