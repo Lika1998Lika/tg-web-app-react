@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProductItem from '../product-item/product-item';
 import './priduct-list.css';
 import useTelegram from '../hooks/useTelegram';
@@ -26,24 +26,25 @@ const getTotalPrice = (items: ProductType[]) => {
 }
 
 function ProductList() {
-  const [addedItem, setAddedItem] = useState<ProductType[]>([]);
+  const [cart, setCart] = useState<ProductType[]>([]);
+  const { tg, query_id } = useTelegram();
 
-  const { tg, query_id, onClose } = useTelegram();
-
-  const onSendData = useCallback(async () => {
+  const onSendData = async () => {
     const data = {
       query_id,
-      products: addedItem,
-      totalPrice: getTotalPrice(addedItem)
+      products: cart,
+      totalPrice: getTotalPrice(cart)
     };
-    await fetch('http://44.226.145.213:8000/web-data', {
+    const response = await fetch('http://44.226.145.213:8000/web-data', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data)
     })
-  }, [addedItem]); // useCallback используем, чтобы сохранить ссылку на функцию 
+
+    return response
+  }; // useCallback используем, чтобы сохранить ссылку на функцию 
 
   // useEffect(() => {
   //   tg.onEvent('mainButtonClicked', onSendData); // подписались
@@ -54,23 +55,7 @@ function ProductList() {
   // }, []);
 
   const onAdd = (product: ProductType) => {
-    setAddedItem([...products, product]);
-
-    // if (newItem.length === 0) {
-    //   tg.MainButton.hide();
-    // } else {
-    //   tg.MainButton.show();
-    //   tg.MainButton.setParams({
-    //     text: `Купить ${getTotalPrice(newItem)}`,
-    //   })
-    //   tg.MainButton.onClick(() => {
-    //     onSendData().catch((e) => {
-    //       tg.MainButton.setParams({
-    //         text: `Упс ${e.message}`,
-    //       })
-    //     })
-    //   })
-    // }
+    setCart([...cart, product]);
   };
 
   useEffect(() => {
@@ -81,12 +66,22 @@ function ProductList() {
       tg.MainButton.setParams({
         text: `Купить ${getTotalPrice(products)}`,
       })
-      tg.MainButton.onClick(() => {
-        onSendData().then(onClose).catch((e) => {
-          tg.MainButton.setParams({
-            text: `oops!! ${e.message}`,
-          })
-        })
+      tg.MainButton.onClick(async () => {
+        try {
+          const result = await onSendData()
+          if (result.status === 200) {
+            tg.MainButton.setParams({
+              text: `Success ${getTotalPrice(products)}`,
+            })
+            // onClose();
+          }
+        } catch (e) {
+          if (e instanceof Error) {
+            tg.MainButton.setParams({
+              text: `Oops!! ${e.message}`,
+            })
+          }
+        }
       })
     }
   }, [products])
