@@ -73,11 +73,13 @@ function ProductList() {
     // }
   };
 
-  if (products.length === 0) {
-    tg.MainButton.hide()
-  } else {
-    tg.MainButton.show()
-  }
+  useEffect(() => {
+    if (products.length === 0) {
+      tg.MainButton.hide()
+    } else {
+      tg.MainButton.show()
+    }
+  }, [products])
 
   return (
     <div className='list'>
