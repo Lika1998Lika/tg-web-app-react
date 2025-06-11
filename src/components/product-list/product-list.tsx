@@ -64,7 +64,7 @@ function ProductList() {
     } else {
       tg.MainButton.show()
       tg.MainButton.setParams({
-        text: `Купить ${getTotalPrice(cart)}`,
+        text: `Buy ${getTotalPrice(cart)}`,
       })
       tg.MainButton.onClick(async () => {
         try {
