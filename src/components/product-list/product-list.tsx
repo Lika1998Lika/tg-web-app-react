@@ -30,13 +30,13 @@ function ProductList() {
 
   const { tg, query_id, onClose } = useTelegram();
 
-  const onSendData = useCallback(() => {
+  const onSendData = useCallback(async () => {
     const data = {
       query_id,
       products: addedItem,
       totalPrice: getTotalPrice(addedItem)
     };
-    fetch('http://44.226.145.213:8000/web-data', {
+    await fetch('http://44.226.145.213:8000/web-data', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -73,8 +73,11 @@ function ProductList() {
         text: `Купить ${getTotalPrice(newItem)}`,
       })
       tg.MainButton.onClick(() => {
-        onSendData()
-        onClose()
+        onSendData().then(onClose).catch((e) => {
+          tg.MainButton.setParams({
+            text: `Упс ${e.message}`,
+          })
+        })
       })
     }
   };

@@ -1,3 +1,4 @@
+import Button from '../button/button';
 import './product-item.css';
 
 type ProductType = {
@@ -27,7 +28,7 @@ function ProductItem({ product, className, onAdd }: ProductItemType) {
       <div className="price">
         <span>Стоимость: <b>{product.price}</b></span>
       </div>
-      <button className="add-btn" onClick={onAddHandler}>Добавить в корзину</button>
+      <Button onClose={onAddHandler}>Добавить в корзину</Button>
     </div>
   )
 };
