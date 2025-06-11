@@ -79,7 +79,7 @@ function ProductList() {
     <div className='list'>
       {
         products.map((item: ProductType) => (
-          <ProductItem product={item} className={'item'} onAdd={onAdd} />
+          <ProductItem key={item.id} product={item} className={'item'} onAdd={onAdd} />
         ))
       }
     </div>
