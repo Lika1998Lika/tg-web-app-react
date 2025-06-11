@@ -46,13 +46,13 @@ function ProductList() {
     return response
   }; // useCallback используем, чтобы сохранить ссылку на функцию 
 
-  // useEffect(() => {
-  //   tg.onEvent('mainButtonClicked', onSendData); // подписались
+  useEffect(() => {
+    tg.onEvent('mainButtonClicked', onSendData); // подписались
 
-  //   return () => {
-  //     tg.offEvent('mainButtonClicked', onSendData); // отписались
-  //   }
-  // }, []);
+    return () => {
+      tg.offEvent('mainButtonClicked', onSendData); // отписались
+    }
+  }, []);
 
   const onAdd = (product: ProductType) => {
     setCart([...cart, product]);
