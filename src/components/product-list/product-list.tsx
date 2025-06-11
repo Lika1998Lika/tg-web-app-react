@@ -70,8 +70,9 @@ function ProductList() {
     } else {
       tg.MainButton.show();
       tg.MainButton.setParams({
-        text: `Купить ${getTotalPrice(newItem)}`
+        text: `Купить ${getTotalPrice(newItem)}`,
       })
+      tg.MainButton.onClick(() => console.log('hhh'))
     }
   };
 
