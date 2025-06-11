@@ -36,7 +36,7 @@ function ProductList() {
       products: addedItem,
       totalPrice: getTotalPrice(addedItem)
     };
-    fetch('http://44.226.145.213:10000/web-data', {
+    fetch('http://44.226.145.213:8000/web-data', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
