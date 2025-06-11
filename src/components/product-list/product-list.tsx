@@ -52,7 +52,7 @@ function ProductList() {
     return () => {
       tg.offEvent('mainButtonClicked', onSendData); // отписались
     }
-  }, []);
+  }, [onSendData]);
 
   const onAdd = (product: ProductType) => {
     setCart([...cart, product]);
