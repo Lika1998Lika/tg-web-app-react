@@ -8,7 +8,7 @@ function Header() {
   return (
     <div className='header'>
       <Button onClose={onClose}>Закрыть</Button>
-      <span className='username'>{user?.username}</span>
+      <span className='username'>{user?.first_name}</span>
     </div>
   );
 }
